@@ -1,0 +1,36 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
+  <h1>OK {{getCurrentUser().name}}. Let's get some stuff done!</h1>
+  <form ng-submit="createTodo(newTodo)">
+    <div class="input-group input-group-lg">
+      <span class="input-group-btn">
+        <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i></button>
+      </span>
+      <input type="text" class="form-control" placeholder="What to do..." ng-model="newTodo">
+    </div>
+  </form>
+  <form class="search-bar">
+    <div class="input-group input-group-lg">
+      <span class="input-group-btn">
+        <button class="btn btn-info"><i class="fa fa-search"></i></button>
+      </span>
+      <input type="text" class="form-control" ng-model="searchText" placeholder="Search...">
+    </div>
+  </form>
+  <ul class="list-unstyled todos">
+    <li ng-repeat="todo in todos | filter: searchText | orderBy: '-completed'">
+      <div class="row item">
+        <div class="col-md-10">
+          <p class="lead" ng-class="{strike: todo.completed}">{{todo.name}}</p><span ng-show="todo.updatedDate">Completed on: {{todo.updatedDate | date : short}}</span>
+        </div>
+        <div class="col-md-2">
+          <button ng-hide="todo.updatedDate" type="button" class="btn btn-success" ng-click="completedTodo(todo)"><i class="fa fa-check"></i></button>
+          <button type="button" class="btn btn-danger pull-right" ng-click="removeTodo(todo)"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+    </li>
+  </ul>
+  </div>
+</div>
